@@ -1,38 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpeanuts <mpeanuts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/19 19:02:21 by mpeanuts          #+#    #+#             */
-/*   Updated: 2021/10/19 19:02:22 by mpeanuts         ###   ########.fr       */
+/*   Created: 2021/10/19 19:00:11 by mpeanuts          #+#    #+#             */
+/*   Updated: 2021/10/19 19:00:12 by mpeanuts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+int	ft_isalnum(int c)
 {
-	int		printed;
-	va_list	args;
-
-	if (!format)
-		return (-1);
-	va_start(args, format);
-	printed = 0;
-	while (*format)
-	{
-		if (*format != '%')
-		{
-			printed += ft_putchar_fd((char)*format, 1);
-		}
-		else
-		{
-			printed += print_specifier(*(char *)(++format), &args);
-		}
-		format++;
-	}
-	va_end(args);
-	return (printed);
+	if (ft_isdigit(c) || ft_isalpha(c))
+		return (1);
+	return (0);
 }

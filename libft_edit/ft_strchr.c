@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpeanuts <mpeanuts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/19 19:02:21 by mpeanuts          #+#    #+#             */
-/*   Updated: 2021/10/19 19:02:22 by mpeanuts         ###   ########.fr       */
+/*   Created: 2021/10/19 19:01:46 by mpeanuts          #+#    #+#             */
+/*   Updated: 2021/10/19 19:01:47 by mpeanuts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+char	*ft_strchr(const char *s, int c)
 {
-	int		printed;
-	va_list	args;
-
-	if (!format)
-		return (-1);
-	va_start(args, format);
-	printed = 0;
-	while (*format)
+	while (*s != '\0')
 	{
-		if (*format != '%')
-		{
-			printed += ft_putchar_fd((char)*format, 1);
-		}
-		else
-		{
-			printed += print_specifier(*(char *)(++format), &args);
-		}
-		format++;
+		if ((unsigned char)*s == (unsigned char)c)
+			return ((char *)s);
+		s++;
 	}
-	va_end(args);
-	return (printed);
+	if ((unsigned char)*s == (unsigned char)c)
+		return ((char *)s);
+	return (NULL);
 }

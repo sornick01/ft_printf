@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpeanuts <mpeanuts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/19 19:02:21 by mpeanuts          #+#    #+#             */
-/*   Updated: 2021/10/19 19:02:22 by mpeanuts         ###   ########.fr       */
+/*   Created: 2021/10/19 19:01:18 by mpeanuts          #+#    #+#             */
+/*   Updated: 2021/10/19 19:01:19 by mpeanuts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	int		printed;
-	va_list	args;
-
-	if (!format)
-		return (-1);
-	va_start(args, format);
-	printed = 0;
-	while (*format)
+	if (!dst && !src)
+		return (NULL);
+	if (len == 0)
 	{
-		if (*format != '%')
-		{
-			printed += ft_putchar_fd((char)*format, 1);
-		}
-		else
-		{
-			printed += print_specifier(*(char *)(++format), &args);
-		}
-		format++;
+		return (dst);
 	}
-	va_end(args);
-	return (printed);
+	if (dst < src)
+		return (ft_memcpy(dst, src, len));
+	else
+	{
+		while (--len != 0)
+		{
+			((unsigned char *)dst)[len] = ((unsigned char *)src)[len];
+		}
+		((unsigned char *)dst)[len] = ((unsigned char *)src)[len];
+		return (dst);
+	}
 }

@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpeanuts <mpeanuts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/19 19:02:21 by mpeanuts          #+#    #+#             */
-/*   Updated: 2021/10/19 19:02:22 by mpeanuts         ###   ########.fr       */
+/*   Created: 2021/10/19 19:02:00 by mpeanuts          #+#    #+#             */
+/*   Updated: 2021/10/19 19:02:01 by mpeanuts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+size_t	ft_strlen(const char *s)
 {
-	int		printed;
-	va_list	args;
+	size_t	count;
 
-	if (!format)
-		return (-1);
-	va_start(args, format);
-	printed = 0;
-	while (*format)
+	count = 0;
+	while (*s != '\0')
 	{
-		if (*format != '%')
-		{
-			printed += ft_putchar_fd((char)*format, 1);
-		}
-		else
-		{
-			printed += print_specifier(*(char *)(++format), &args);
-		}
-		format++;
+		count++;
+		s++;
 	}
-	va_end(args);
-	return (printed);
+	return (count);
 }

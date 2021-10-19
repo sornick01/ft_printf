@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpeanuts <mpeanuts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/19 19:02:21 by mpeanuts          #+#    #+#             */
-/*   Updated: 2021/10/19 19:02:22 by mpeanuts         ###   ########.fr       */
+/*   Created: 2021/10/19 19:01:50 by mpeanuts          #+#    #+#             */
+/*   Updated: 2021/10/19 19:01:51 by mpeanuts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+char	*ft_strdup(const char *s1)
 {
-	int		printed;
-	va_list	args;
+	char	*copy;
+	size_t	i;
+	size_t	len;
 
-	if (!format)
-		return (-1);
-	va_start(args, format);
-	printed = 0;
-	while (*format)
+	len = ft_strlen(s1);
+	copy = (char *)malloc(sizeof(char) * (len + 1));
+	if (copy == NULL)
+		return (NULL);
+	i = 0;
+	while (i <= len)
 	{
-		if (*format != '%')
-		{
-			printed += ft_putchar_fd((char)*format, 1);
-		}
-		else
-		{
-			printed += print_specifier(*(char *)(++format), &args);
-		}
-		format++;
+		copy[i] = s1[i];
+		i++;
 	}
-	va_end(args);
-	return (printed);
+	return (copy);
 }

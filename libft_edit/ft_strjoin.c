@@ -1,45 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_uns_nbr_fd.c                                :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpeanuts <mpeanuts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/19 19:02:25 by mpeanuts          #+#    #+#             */
-/*   Updated: 2021/10/19 19:02:26 by mpeanuts         ###   ########.fr       */
+/*   Created: 2021/10/19 19:01:54 by mpeanuts          #+#    #+#             */
+/*   Updated: 2021/10/19 19:01:55 by mpeanuts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-static int	numlen_dec(unsigned int n)
+char	*ft_strjoin(char const *s1, const char *s2)
 {
-	int	count;
+	char	*str;
+	size_t	str_len;
+	size_t	i;
 
-	count = 0;
-	if (n == 0)
-		return (1);
-	while (n)
+	if (!s1 || !s2)
+		return ("");
+	str_len = ft_strlen(s1) + ft_strlen(s2);
+	str = (char *)malloc(sizeof(char) * (str_len + 1));
+	if (str == NULL)
+		return (NULL);
+	i = 0;
+	while (*s1 != '\0')
 	{
-		count++;
-		n /= 10;
+		str[i] = *s1;
+		s1++;
+		i++;
 	}
-	return (count);
-}
-
-int	ft_put_uns_nbr_fd(unsigned int n, int fd)
-{
-	char	c;
-	int		num;
-
-	num = numlen_dec(n);
-	if (n >= 10)
+	while (*s2 != '\0')
 	{
-		c = (n % 10) + '0';
-		ft_put_uns_nbr_fd(n / 10, fd);
-		ft_putchar_fd(c, fd);
+		str[i] = *s2;
+		s2++;
+		i++;
 	}
-	else
-		ft_putchar_fd(n + '0', fd);
-	return (num);
+	str[i] = '\0';
+	return (str);
 }

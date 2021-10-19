@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpeanuts <mpeanuts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/19 19:02:21 by mpeanuts          #+#    #+#             */
-/*   Updated: 2021/10/19 19:02:22 by mpeanuts         ###   ########.fr       */
+/*   Created: 2021/10/19 19:00:57 by mpeanuts          #+#    #+#             */
+/*   Updated: 2021/10/19 19:00:58 by mpeanuts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	int		printed;
-	va_list	args;
+	t_list	*new_list;
+	t_list	*tmp;
 
-	if (!format)
-		return (-1);
-	va_start(args, format);
-	printed = 0;
-	while (*format)
+	if (!lst || !f)
+		return (NULL);
+	new_list = NULL;
+	while (lst)
 	{
-		if (*format != '%')
+		tmp = ft_lstnew((f)(lst->content));
+		if (!tmp)
 		{
-			printed += ft_putchar_fd((char)*format, 1);
+			ft_lstclear(&new_list, del);
+			return (NULL);
 		}
-		else
-		{
-			printed += print_specifier(*(char *)(++format), &args);
-		}
-		format++;
+		ft_lstadd_back(&new_list, tmp);
+		lst = lst->next;
 	}
-	va_end(args);
-	return (printed);
+	return (new_list);
 }

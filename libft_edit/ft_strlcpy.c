@@ -1,38 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpeanuts <mpeanuts@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/19 19:02:21 by mpeanuts          #+#    #+#             */
-/*   Updated: 2021/10/19 19:02:22 by mpeanuts         ###   ########.fr       */
+/*   Created: 2021/10/19 19:01:58 by mpeanuts          #+#    #+#             */
+/*   Updated: 2021/10/19 19:01:59 by mpeanuts         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *format, ...)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	int		printed;
-	va_list	args;
+	size_t	i;
 
-	if (!format)
-		return (-1);
-	va_start(args, format);
-	printed = 0;
-	while (*format)
+	i = 0;
+	if (dstsize > 0)
 	{
-		if (*format != '%')
+		while (i < dstsize - 1 && src[i] != '\0')
 		{
-			printed += ft_putchar_fd((char)*format, 1);
+			dst[i] = src[i];
+			i++;
 		}
-		else
-		{
-			printed += print_specifier(*(char *)(++format), &args);
-		}
-		format++;
+		dst[i] = '\0';
 	}
-	va_end(args);
-	return (printed);
+	return (ft_strlen(src));
 }
